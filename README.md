@@ -12,4 +12,4 @@
 
 **ССылка на github pages**
 
-[Mesto](https://despair322.github.io/MESTO/)
+[Mesto](https://despair322.github.io/mesto/)
