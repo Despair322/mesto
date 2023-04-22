@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   padding-top: 42px;
+  padding-left: 19px;
+  padding-right: 19px;
   align-items: center;
 }
 
@@ -18,5 +20,12 @@
     padding-bottom: 51px;
     align-items: start;
     column-gap: 30px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .profile{
+    padding-left: 0;
+    padding-right: 0;
   }
 }
