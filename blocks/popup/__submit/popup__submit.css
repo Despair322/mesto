@@ -2,9 +2,9 @@
   background-color: rgba(0, 0, 0, 1);
   color: #fff;
   border: none;
-
+  border-radius: 2px;
   width: 100%;
-  padding: 14px 0 14px;
+  padding: 14px 0 15px;
   margin: 45px 0 25px;
 
   font-weight: 400;
@@ -17,8 +17,13 @@
   .popup__submit {
     font-size: 18px;
     line-height: 22px;
-    padding-bottom: 14px;
+    padding-bottom: 13px;
+    padding-top: 15px;
     margin-top: 48px;
     margin-bottom: 37px;
   }
+}
+
+.popup__submit:hover {
+  opacity: 0.8;
 }

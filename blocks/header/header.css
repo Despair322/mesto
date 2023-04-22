@@ -1,5 +1,12 @@
 .header {
-  min-height: 84px;
   box-sizing: border-box;
   border-bottom: solid 1px rgba(84, 84, 84, 0.7);
+  padding: 28px 0 30px;
+}
+
+@media screen and (min-width: 700px) {
+  .header{
+    padding-top: 45px;
+    padding-bottom: 39px;
+  }
 }
