@@ -8,7 +8,7 @@
 }
 
 @media screen and (min-width: 700px) {
-  .profile__name-container{
+  .profile__name-container {
     grid-area: name;
     padding-left: 0;
     padding-top: 25px;

@@ -1,4 +1,4 @@
-.photo-card__photo_transform_reverse{
+.photo-card__photo_transform_reverse {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
 }

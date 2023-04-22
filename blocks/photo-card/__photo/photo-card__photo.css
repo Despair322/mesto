@@ -1,7 +1,6 @@
-.photo-card__photo{
+.photo-card__photo {
   grid-area: img;
   display: block;
-  /* max-width: 282px; */
   width: 100%;
   object-fit: cover;
   aspect-ratio: 1/1;
