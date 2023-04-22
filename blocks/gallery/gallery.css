@@ -1,0 +1,14 @@
+.gallery {
+  display: grid;
+  gap: 20px 17px;
+  box-sizing: border-box;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  padding: 0 19px 0;
+  justify-content: center;
+}
+
+@media screen and (min-width: 880px) {
+  .gallery {
+    padding: 0;
+  }
+}

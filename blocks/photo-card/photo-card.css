@@ -1,0 +1,15 @@
+.photo-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  display: grid;
+  grid-template-areas:
+    "img img"
+    "title like";
+
+    grid-template-columns: 1fr min-content;
+  align-content: center;
+  justify-content: center;
+  padding-bottom: 25px;
+  row-gap: 25px;
+}
