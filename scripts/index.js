@@ -26,6 +26,6 @@ function handleFormSubmit(evt) {
   evt.preventDefault();
   nameElement.textContent = nameInput.value;
   professionElement.textContent = jobInput.value;
-  togglePopupVisibility();
+  closePopup();
 }
 formElement.addEventListener('submit', handleFormSubmit);
