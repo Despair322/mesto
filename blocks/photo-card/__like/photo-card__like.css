@@ -10,6 +10,7 @@
   background-position: center;
   border: none;
   margin-right: 20px;
+  cursor: pointer;
 }
 
 .photo-card__like:hover {

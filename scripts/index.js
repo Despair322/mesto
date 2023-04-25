@@ -1,38 +1,15 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
+const card = {
+  name: "Без названия",
+  link: "./images/no-image.png"
+};
 
 const popupNameElement = document.querySelector("#popup-name");
 const popupCardElement = document.querySelector("#popup-card");
 const popupPhotoElement = document.querySelector("#popup-photo")
 
-const openPopupAddBtn = document.querySelector(".profile__add");
-const openPopupNameBtn = document.querySelector(".profile__edit-name");
-const closePopupBtns = document.querySelectorAll(".popup__close");
+const popupAddBtn = document.querySelector(".profile__add");
+const popupNameBtn = document.querySelector(".profile__edit-name");
+const popupCloseBtns = document.querySelectorAll(".popup__close");
 
 const formNameElement = popupNameElement.querySelector(".popup__form");
 const nameInput = formNameElement.querySelector(".popup__input_type_name");
@@ -43,6 +20,9 @@ const professionElement = document.querySelector(".profile__profession");
 const formCardElement = popupCardElement.querySelector(".popup__form");
 const titleInput = formCardElement.querySelector(".popup__input_type_title");
 const linkInput = formCardElement.querySelector(".popup__input_type_link");
+
+const photoElement = popupPhotoElement.querySelector(".popup__photo");
+const photoSubtitleElement = popupPhotoElement.querySelector(".popup__subtitle");
 
 function openPopup(evt) {
   evt.classList.add('popup_opened');
@@ -55,68 +35,84 @@ const openNamePopup = function () {
 }
 
 const openCardPopup = function () {
-  titleInput.value="";
-  linkInput.value="";
+  titleInput.value = "";
+  linkInput.value = "";
   openPopup(popupCardElement);
 }
 
-const closePopup = function (evt) {
-  evt.target.parentElement.parentNode.classList.remove('popup_opened');
+const closePopup = function (elem) {
+  elem.classList.remove('popup_opened');
 }
 
-openPopupNameBtn.addEventListener('click', openNamePopup);
-openPopupAddBtn.addEventListener('click', openCardPopup);
-closePopupBtns.forEach(function (item) {
-  item.addEventListener('click', closePopup);
+function handlePopupClose(evt) {
+  closePopup(evt.target.closest(".popup"))
+}
+
+popupNameBtn.addEventListener('click', openNamePopup);
+popupAddBtn.addEventListener('click', openCardPopup);
+popupCloseBtns.forEach(function (item) {
+  item.addEventListener('click', handlePopupClose);
 });
 
 function handleNameFormSubmit(evt) {
   evt.preventDefault();
   nameElement.textContent = nameInput.value;
   professionElement.textContent = jobInput.value;
-  closePopup(evt);
+  closePopup(evt.target.closest(".popup"));
 }
 formNameElement.addEventListener('submit', handleNameFormSubmit);
 
 const galleryElement = document.querySelector(".gallery");
 const cardTemplate = document.querySelector("#photo-card");
 
-function addPhotoToGallery(title = "без названия", src="../images/karachaevsk.jpeg") {
+function createCard(cardObj) {
   const newCard = cardTemplate.content.querySelector(".photo-card").cloneNode(true);
-  newCard.querySelector(".photo-card__title").textContent = title;
+  newCard.querySelector(".photo-card__title").textContent = cardObj.name;
   const photoElement = newCard.querySelector(".photo-card__photo");
-  photoElement.src = src;
-  photoElement.alt = title;
-  photoElement.addEventListener('click', openFullscrinePopup);
+  photoElement.src = cardObj.link;
+  photoElement.alt = cardObj.name;
+  const data = {
+    src: cardObj.link,
+    alt: cardObj.name,
+    title: cardObj.name
+  };
+  photoElement.addEventListener('click', () => openFullscrinePopup(data));
   newCard.querySelector(".photo-card__like").addEventListener('click', toggleLike);
   newCard.querySelector(".photo-card__delete").addEventListener('click', deleteCard);
-  galleryElement.append(newCard);
+  return newCard;
+}
+
+function renderCard(card) {
+  galleryElement.prepend(card);
 }
 
 function handleCardFormSubmit(evt) {
   evt.preventDefault();
-  addPhotoToGallery(titleInput.value, linkInput.value);
-  closePopup(evt);
+  card.name = titleInput.value.length > 0 ? titleInput.value : "Без названия";
+  card.link = linkInput.value.length > 0 ? linkInput.value : "./images/no-image.png";
+  renderCard(createCard(card));
+  closePopup(evt.target.closest(".popup"));
 }
 
-function toggleLike(evt){
+function toggleLike(evt) {
   evt.target.classList.toggle("photo-card__like_active");
 }
 
-function deleteCard(evt){
-  evt.target.parentElement.remove();
+function deleteCard(evt) {
+  evt.target.closest(".photo-card").remove();
 }
 
-function openFullscrinePopup(evt) {
-  const photoElement = popupPhotoElement.querySelector(".popup__photo");
-  photoElement.src = evt.target.src;
-  photoElement.alt = evt.target.alt;
-  popupPhotoElement.querySelector(".popup__subtitle").textContent = evt.target.parentElement.querySelector(".photo-card__title").textContent;
+function openFullscrinePopup(data) {
+  photoElement.src = data.src;
+  photoElement.alt = data.alt;
+  photoSubtitleElement.textContent = data.title;
   openPopup(popupPhotoElement);
 }
 
 formCardElement.addEventListener('submit', handleCardFormSubmit);
 
-initialCards.forEach(function (item){
-  addPhotoToGallery(item.name, item.link);
+initialCards.forEach(function (item) {
+  card.name = item.name;
+  card.link = item.link;
+  renderCard(createCard(item));
 });
