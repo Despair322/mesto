@@ -5,7 +5,7 @@
   border-radius: 2px;
   width: 100%;
   padding: 14px 0 15px;
-  margin: 45px 0 25px;
+  margin: 25px 0 25px;
 
   font-weight: 400;
   font-size: 14px;
@@ -20,11 +20,15 @@
     line-height: 22px;
     padding-bottom: 13px;
     padding-top: 15px;
-    margin-top: 48px;
+    margin-top: 19px;
     margin-bottom: 37px;
   }
 }
 
 .popup__submit:hover {
   opacity: 0.8;
+}
+
+.popup__submit:disabled:hover{
+  cursor: auto;
 }

@@ -1,0 +1,14 @@
+.popup__submit_disabled {
+  background-color: #fff;
+  color: #C4C4C4;
+  border: 1px solid #C4C4C4;
+  border-radius: 2px;
+
+}
+
+@media screen and (min-width: 500px) {
+  .popup__submit_disabled{
+    padding-bottom: 12px;
+    padding-top: 14px;
+  }
+}

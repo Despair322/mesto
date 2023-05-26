@@ -3,61 +3,79 @@ const card = {
   link: "./images/no-image.png"
 };
 
+const popupElements = document.querySelectorAll('.popup');
 const popupNameElement = document.querySelector("#popup-name");
 const popupCardElement = document.querySelector("#popup-card");
-const popupPhotoElement = document.querySelector("#popup-photo")
+const popupPhotoElement = document.querySelector("#popup-photo");
+let activePopupElement = null;
 
-const popupAddBtn = document.querySelector(".profile__add");
-const popupNameBtn = document.querySelector(".profile__edit-name");
-const popupCloseBtns = document.querySelectorAll(".popup__close");
+const popupAddButtonElement = document.querySelector(".profile__add");
+const popupNameButtonElement = document.querySelector(".profile__edit-name");
+const popupCloseButtonElements = document.querySelectorAll(".popup__close");
 
 const formNameElement = popupNameElement.querySelector(".popup__form");
-const nameInput = formNameElement.querySelector(".popup__input_type_name");
-const jobInput = formNameElement.querySelector(".popup__input_type_profession");
+const nameInputElement = formNameElement.querySelector(".popup__input_type_name");
+const jobInputElement = formNameElement.querySelector(".popup__input_type_profession");
 const nameElement = document.querySelector(".profile__name");
 const professionElement = document.querySelector(".profile__profession");
 
 const formCardElement = popupCardElement.querySelector(".popup__form");
-const titleInput = formCardElement.querySelector(".popup__input_type_title");
-const linkInput = formCardElement.querySelector(".popup__input_type_link");
+const titleInputElement = formCardElement.querySelector(".popup__input_type_title");
+const linkInputElement = formCardElement.querySelector(".popup__input_type_link");
 
 const photoElement = popupPhotoElement.querySelector(".popup__photo");
 const photoSubtitleElement = popupPhotoElement.querySelector(".popup__subtitle");
 
-function openPopup(evt) {
-  evt.classList.add('popup_opened');
+function openPopup(popupElement) {
+  popupElement.classList.add('popup_opened');
+  activePopupElement = popupElement;
 }
 
 const openNamePopup = function () {
-  nameInput.value = nameElement.textContent;
-  jobInput.value = professionElement.textContent;
+  nameInputElement.value = nameElement.textContent;
+  jobInputElement.value = professionElement.textContent;
   openPopup(popupNameElement)
 }
 
 const openCardPopup = function () {
-  titleInput.value = "";
-  linkInput.value = "";
+  titleInputElement.value = "";
+  linkInputElement.value = "";
   openPopup(popupCardElement);
 }
 
 const closePopup = function (elem) {
   elem.classList.remove('popup_opened');
+  activePopupElement = "";
 }
 
 function handlePopupClose(evt) {
   closePopup(evt.target.closest(".popup"))
 }
 
-popupNameBtn.addEventListener('click', openNamePopup);
-popupAddBtn.addEventListener('click', openCardPopup);
-popupCloseBtns.forEach(function (item) {
+function handlePopupCloseOnClick(evt) {
+  if (evt.target === evt.currentTarget)
+    handlePopupClose(evt);
+}
+
+function handlePopupCloseOnKeyPress(evt) {
+  if (activePopupElement !== null && evt.key === "Escape")
+    closePopup(activePopupElement);
+}
+
+popupNameButtonElement.addEventListener('click', openNamePopup);
+popupAddButtonElement.addEventListener('click', openCardPopup);
+popupCloseButtonElements.forEach(function (item) {
   item.addEventListener('click', handlePopupClose);
 });
+[...popupElements].forEach((popupElement) => {
+  popupElement.addEventListener('click', handlePopupCloseOnClick);
+})
+window.addEventListener('keydown', handlePopupCloseOnKeyPress);
 
 function handleNameFormSubmit(evt) {
   evt.preventDefault();
-  nameElement.textContent = nameInput.value;
-  professionElement.textContent = jobInput.value;
+  nameElement.textContent = nameInputElement.value;
+  professionElement.textContent = jobInputElement.value;
   closePopup(evt.target.closest(".popup"));
 }
 formNameElement.addEventListener('submit', handleNameFormSubmit);
@@ -88,8 +106,8 @@ function renderCard(card) {
 
 function handleCardFormSubmit(evt) {
   evt.preventDefault();
-  card.name = titleInput.value.length > 0 ? titleInput.value : "Без названия";
-  card.link = linkInput.value.length > 0 ? linkInput.value : "./images/no-image.png";
+  card.name = titleInputElement.value.length > 0 ? titleInputElement.value : "Без названия";
+  card.link = linkInputElement.value.length > 0 ? linkInputElement.value : "./images/no-image.png";
   renderCard(createCard(card));
   closePopup(evt.target.closest(".popup"));
 }
@@ -116,3 +134,4 @@ initialCards.forEach(function (item) {
   card.link = item.link;
   renderCard(createCard(item));
 });
+
