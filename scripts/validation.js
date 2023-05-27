@@ -1,6 +1,7 @@
 function showError(inputElement, errorElement, config) {
   inputElement.classList.add(config.inputErrorClass);
   errorElement.textContent = inputElement.validationMessage;
+  // inputElement.addEventListener('mouseover', )
 }
 
 function hideError(inputElement, errorElement, config) {
@@ -8,13 +9,21 @@ function hideError(inputElement, errorElement, config) {
   errorElement.textContent = inputElement.validationMessage;
 }
 
+function disableButton(buttonElement, config){
+  buttonElement.disabled = true;
+  buttonElement.classList.add(config.inactiveButtonClass);
+}
+
+function enableButton(buttonElement, config){
+  buttonElement.disabled = false;
+  buttonElement.classList.remove(config.inactiveButtonClass);
+}
+
 function toggleButtonState(buttonElement, isActive, config) {
   if (!isActive) {
-    buttonElement.disabled = 'disabled';
-    buttonElement.classList.add(config.inactiveButtonClass);
+    disableButton(buttonElement, config)
   } else {
-    buttonElement.disabled = false;
-    buttonElement.classList.remove(config.inactiveButtonClass);
+    enableButton(buttonElement, config)
   }
 }
 
@@ -36,17 +45,17 @@ function setEventListener(formElement, config) {
 
   toggleButtonState(buttonSubmitElement, formElement.checkValidity(), config);
 
-  [...inputElements].forEach(inputItem => {
+  inputElements.forEach((inputItem) => {
     inputItem.addEventListener('input', () => {
       toggleButtonState(buttonSubmitElement, formElement.checkValidity(), config);
       checkInputValidity(inputItem, formElement, config);
-    })
-  })
+    });
+  });
 }
 
 function enableValidation(config) {
   const forms = document.querySelectorAll(config.formSelector);
-  [...forms].forEach(formItem => {
+  forms.forEach(formItem => {
     setEventListener(formItem, config);
   })
 }
