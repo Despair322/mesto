@@ -9,18 +9,14 @@ const popupCloseButtonElements = document.querySelectorAll(".popup__close");
 
 const formNameElement = popupNameElement.querySelector(".popup__form");
 const nameInputElement = formNameElement.querySelector(".popup__input_type_name");
-const nameErrorElement = formNameElement.querySelector(`#${nameInputElement.name}-error`)
 const jobInputElement = formNameElement.querySelector(".popup__input_type_profession");
-const jobErrorElement = formNameElement.querySelector(`#${jobInputElement.name}-error`)
 const nameElement = document.querySelector(".profile__name");
 const professionElement = document.querySelector(".profile__profession");
 const buttonNameSubmitElement = formNameElement.querySelector(".popup__submit");
 
 const formCardElement = popupCardElement.querySelector(".popup__form");
 const titleInputElement = formCardElement.querySelector(".popup__input_type_title");
-const titleErrorElement = formCardElement.querySelector(`#${titleInputElement.name}-error`)
 const linkInputElement = formCardElement.querySelector(".popup__input_type_link");
-const linkErrorElement = formCardElement.querySelector(`#${linkInputElement.name}-error`)
 const buttonCardSubmitElement = formCardElement.querySelector(".popup__submit");
 
 const photoElement = popupPhotoElement.querySelector(".popup__photo");
@@ -33,23 +29,15 @@ function openPopup(popupElement) {
 
 function resetNamePopup() {
   nameInputElement.value = nameElement.textContent;
-  nameInputElement.classList.remove('popup__input_type_error');
-  nameErrorElement.textContent = "";
 
   jobInputElement.value = professionElement.textContent;
-  jobInputElement.classList.remove('popup__input_type_error');
-  jobErrorElement.textContent = "";
   disableButton(buttonNameSubmitElement, { inactiveButtonClass: 'popup__submit_disabled' })
 }
 
 function resetCardPopup() {
   titleInputElement.value = "";
-  titleInputElement.classList.remove('popup__input_type_error');
-  titleErrorElement.textContent = "";
 
   linkInputElement.value = "";
-  linkInputElement.classList.remove('popup__input_type_error');
-  linkErrorElement.textContent = "";
   disableButton(buttonCardSubmitElement, { inactiveButtonClass: 'popup__submit_disabled' })
 }
 
