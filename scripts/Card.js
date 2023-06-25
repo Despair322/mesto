@@ -37,7 +37,6 @@ export class Card {
     const newCard = document.querySelector(this._templateSelector).content.querySelector(".photo-card").cloneNode(true);
     newCard.querySelector(".photo-card__title").textContent = this._name;
     const photoElement = newCard.querySelector(".photo-card__photo");
-
     this._popupPhotoElement = document.querySelector("#popup-photo");
     this._photoElement = this._popupPhotoElement.querySelector(".popup__photo");
     this._photoSubtitleElement = this._popupPhotoElement.querySelector(".popup__subtitle");
