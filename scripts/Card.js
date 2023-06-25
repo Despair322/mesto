@@ -8,13 +8,13 @@ export class Card {
 
   _openPopup() {
     this._popupPhotoElement.classList.add('popup_opened');
-    window.addEventListener('keydown', this._closeByEsc);
+    window.addEventListener('keydown', evt => { this._closeByEsc(evt) });
   }
 
   _closeByEsc(evt) {
     if (evt.key === "Escape") {
       this._popupPhotoElement.classList.remove('popup_opened');
-      window.removeEventListener('keydown', this._closeByEsc);
+      window.removeEventListener('keydown', evt => { this._closeByEsc(evt) });
     }
   }
 
