@@ -1,51 +1,59 @@
+import { openPopup } from "./utils.js";
 export class Card {
 
   constructor(template, data) {
     this._templateSelector = template;
     this._name = data.name;
     this._link = data.link;
-  }
 
-  _openPopup() {
-    this._popupPhotoElement.classList.add('popup_opened');
-    window.addEventListener('keydown', evt => { this._closeByEsc(evt) });
-  }
-
-  _closeByEsc(evt) {
-    if (evt.key === "Escape") {
-      this._popupPhotoElement.classList.remove('popup_opened');
-      window.removeEventListener('keydown', evt => { this._closeByEsc(evt) });
-    }
+    this._popupFullImageElement = document.querySelector("#popup-photo");
+    this._popupPhotoElement = this._popupFullImageElement.querySelector(".popup__photo");
+    this._popupSubtitleElement = this._popupFullImageElement.querySelector(".popup__subtitle");
   }
 
   _openFullscrinePopup() {
+    this._popupPhotoElement.src = this._link;
+    this._popupPhotoElement.alt = this._name;
+    this._popupSubtitleElement.textContent = this._name;
+    openPopup(this._popupFullImageElement);
+  }
+
+  _toggleLike() {
+    this._likeButton.classList.toggle("photo-card__like_active");
+  }
+
+  _deleteCard() {
+    this._newCard.remove();
+  }
+
+  _getTemplate() {
+    const template = document
+      .querySelector(this._templateSelector)
+      .content
+      .querySelector(".photo-card")
+      .cloneNode(true);
+    return template;
+  }
+
+  _setData() {
+    this._newCard.querySelector(".photo-card__title").textContent = this._name;
+    this._photoElement = this._newCard.querySelector(".photo-card__photo");
     this._photoElement.src = this._link;
     this._photoElement.alt = this._name;
-    this._photoSubtitleElement.textContent = this._name;
-    this._openPopup();
   }
 
-  _toggleLike(evt) {
-    evt.target.classList.toggle("photo-card__like_active");
-  }
-
-  _deleteCard(evt) {
-    evt.target.closest(".photo-card").remove();
+  _setEventListeners() {
+    this._photoElement.addEventListener('click', () => this._openFullscrinePopup());
+    this._likeButton = this._newCard.querySelector(".photo-card__like");
+    this._likeButton.addEventListener('click', () => { this._toggleLike() });
+    this._newCard.querySelector(".photo-card__delete").addEventListener('click', () => { this._deleteCard() });
   }
 
   create() {
-    const newCard = document.querySelector(this._templateSelector).content.querySelector(".photo-card").cloneNode(true);
-    newCard.querySelector(".photo-card__title").textContent = this._name;
-    const photoElement = newCard.querySelector(".photo-card__photo");
-    this._popupPhotoElement = document.querySelector("#popup-photo");
-    this._photoElement = this._popupPhotoElement.querySelector(".popup__photo");
-    this._photoSubtitleElement = this._popupPhotoElement.querySelector(".popup__subtitle");
-    photoElement.src = this._link;
-    photoElement.alt = this._name;
-    photoElement.addEventListener('click', () => this._openFullscrinePopup());
-    newCard.querySelector(".photo-card__like").addEventListener('click', this._toggleLike);
-    newCard.querySelector(".photo-card__delete").addEventListener('click', this._deleteCard);
-    return newCard;
+    this._newCard = this._getTemplate();
+    this._setData();
+    this._setEventListeners();
+    return this._newCard;
   }
 }
 
