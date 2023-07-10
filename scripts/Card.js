@@ -1,21 +1,13 @@
-import { openPopup } from "./utils.js";
 export class Card {
 
-  constructor(template, data) {
+  constructor(template, data, handleCardClick) {
     this._templateSelector = template;
     this._name = data.name;
     this._link = data.link;
-
+    this._handleCardClick = handleCardClick;
     this._popupFullImageElement = document.querySelector("#popup-photo");
     this._popupPhotoElement = this._popupFullImageElement.querySelector(".popup__photo");
     this._popupSubtitleElement = this._popupFullImageElement.querySelector(".popup__subtitle");
-  }
-
-  _openFullscrinePopup() {
-    this._popupPhotoElement.src = this._link;
-    this._popupPhotoElement.alt = this._name;
-    this._popupSubtitleElement.textContent = this._name;
-    openPopup(this._popupFullImageElement);
   }
 
   _toggleLike() {
@@ -43,7 +35,7 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._photoElement.addEventListener('click', () => this._openFullscrinePopup());
+    this._photoElement.addEventListener('click', this._handleCardClick.bind(this));
     this._likeButton = this._newCard.querySelector(".photo-card__like");
     this._likeButton.addEventListener('click', () => { this._toggleLike() });
     this._newCard.querySelector(".photo-card__delete").addEventListener('click', () => { this._deleteCard() });
