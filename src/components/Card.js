@@ -5,9 +5,6 @@ export class Card {
     this._name = data.name;
     this._link = data.link;
     this._handleCardClick = handleCardClick;
-    this._popupFullImageElement = document.querySelector("#popup-photo");
-    this._popupPhotoElement = this._popupFullImageElement.querySelector(".popup__photo");
-    this._popupSubtitleElement = this._popupFullImageElement.querySelector(".popup__subtitle");
   }
 
   _toggleLike() {
@@ -32,6 +29,13 @@ export class Card {
     this._photoElement = this._newCard.querySelector(".photo-card__photo");
     this._photoElement.src = this._link;
     this._photoElement.alt = this._name;
+  }
+
+  getData(){
+    const data = {};
+    data.name = this._name;
+    data.link = this._link;
+    return data;
   }
 
   _setEventListeners() {
