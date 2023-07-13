@@ -7,7 +7,7 @@ export class Card {
     this._likes = data.likes;
     this._id = data._id;
     this._isOwner = data.owner._id === myId ? true : false;
-    this._myName = myName;
+    this._myId = myId;
     this._handleCardClick = handleCardClick;
     this._handleDeleteCard = handleDeleteCard;
     this._handleLike = handleLike;
@@ -19,6 +19,7 @@ export class Card {
       if (this._likeButton.classList.contains('photo-card__like_active')) {
         this._handleUnlike()
           .then((likes) => {
+            this._likeButton.classList.toggle("photo-card__like_active");
             this._likeCounter.innerHTML = likes.length;
           })
           .catch(err => { console.log(err); });
@@ -26,12 +27,15 @@ export class Card {
       else {
         this._handleLike()
           .then((likes) => {
+            this._likeButton.classList.toggle("photo-card__like_active");
             this._likeCounter.innerHTML = likes.length;
           })
           .catch(err => { console.log(err); });
       }
+    }else{
+      this._likeButton.classList.toggle("photo-card__like_active");
     }
-    this._likeButton.classList.toggle("photo-card__like_active");
+
   }
 
   _deleteCard() {
@@ -62,8 +66,7 @@ export class Card {
     this._likeButton = this._newCard.querySelector(".photo-card__like");
     this._likeCounter = this._newCard.querySelector('.photo-card__like-counter');
     this._likeCounter.innerHTML = this._likes.length;
-
-    if (this._likes.find(like => like.name === this._myName))
+    if (this._likes.find(like => like._id === this._myId))
       this._toggleLike(false)
   }
 

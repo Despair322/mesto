@@ -3,97 +3,58 @@ export default class Api {
     this._options = options;
   }
 
+  _checkResponse(res){
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
   getInitialCards() {
     return fetch(`${this._options.baseUrl}/cards`, {
-      headers: {
-        authorization: 'cd6a00d5-f38c-4bdf-acb8-932af302ac4e'
-      }
+      headers: this._options.headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      .then(this._checkResponse);
   }
 
   getUserInfo() {
     return fetch(`${this._options.baseUrl}/users/me `, {
-      headers: {
-        authorization: 'cd6a00d5-f38c-4bdf-acb8-932af302ac4e'
-      }
+      headers: this._options.headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      .then(this._checkResponse);
   }
 
   updateUserInfo({ name, about }) {
     return fetch(`${this._options.baseUrl}/users/me `, {
       method: 'PATCH',
       body: JSON.stringify({ name, about }),
-      headers: {
-        authorization: 'cd6a00d5-f38c-4bdf-acb8-932af302ac4e',
-        "Content-Type": "application/json"
-      }
+      headers: this._options.headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      .then(this._checkResponse);
   }
 
   deleteCard(cardId) {
     return fetch(`${this._options.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: {
-        authorization: 'cd6a00d5-f38c-4bdf-acb8-932af302ac4e',
-        "Content-Type": "application/json"
-      }
+      headers: this._options.headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      .then(this._checkResponse);
   }
 
   like(cardId) {
     return fetch(`${this._options.baseUrl}/cards/${cardId}/likes`, {
       method: 'PUT',
-      headers: {
-        authorization: 'cd6a00d5-f38c-4bdf-acb8-932af302ac4e',
-        "Content-Type": "application/json"
-      }
+      headers: this._options.headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      .then(this._checkResponse);
   }
 
   unlike(cardId) {
     return fetch(`${this._options.baseUrl}/cards/${cardId}/likes`, {
       method: 'DELETE',
-      headers: {
-        authorization: 'cd6a00d5-f38c-4bdf-acb8-932af302ac4e',
-        "Content-Type": "application/json"
-      }
+      headers: this._options.headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      .then(this._checkResponse);
   }
 
 
@@ -101,35 +62,27 @@ export default class Api {
     return fetch(`${this._options.baseUrl}/cards `, {
       method: 'POST',
       body: JSON.stringify({ name, link }),
-      headers: {
-        authorization: 'cd6a00d5-f38c-4bdf-acb8-932af302ac4e',
-        "Content-Type": "application/json"
-      }
+      headers: this._options.headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      .then(this._checkResponse);
   }
 
   updateAvatar(link) {
     return fetch(`${this._options.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       body: JSON.stringify({ avatar: link }),
-      headers: {
-        authorization: 'cd6a00d5-f38c-4bdf-acb8-932af302ac4e',
-        "Content-Type": "application/json"
-      }
+      headers: this._options.headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      .then(this._checkResponse);
   }
+
+  dd(){
+    Promise.all([this.getUserInfo, this.getInitialCards])
+    .then()
+    .catch(err=>{console.log(err);})
+  }
+
+
 }
 
 
