@@ -10,7 +10,10 @@
 @import url("../blocks/content/content.css");
 
 @import url("../blocks/profile/profile.css");
+@import url("../blocks/profile/__photo-container/profile__photo-container.css");
 @import url("../blocks/profile/__photo/profile__photo.css");
+@import url("../blocks/profile/__photo-overlay/profile__photo-overlay.css");
+@import url("../blocks/profile/__edit-photo/profile__edit-photo.css");
 @import url("../blocks/profile/__name-container/profile__name-container.css");
 @import url("../blocks/profile/__name/profile__name.css");
 @import url("../blocks/profile/__edit-name/profile__edit-name.css");
@@ -23,9 +26,12 @@
 @import url("../blocks/photo-card/__photo/photo-card__photo.css");
 @import url("../blocks/photo-card/__photo/_transform/photo-card__photo_transform_reverse.css");
 @import url("../blocks/photo-card/__title/photo-card__title.css");
+@import url("../blocks/photo-card/__like-container/photo-card__like-container.css");
 @import url("../blocks/photo-card/__like/photo-card__like.css");
 @import url("../blocks/photo-card/__like/_active/photo-card__like_active.css");
+@import url("../blocks/photo-card/__like-counter/photo-card__like-counter.css");
 @import url("../blocks/photo-card/__delete/photo-card__delete.css");
+@import url("../blocks/photo-card/__delete/_hidden/photo-card__delete_hidden.css");
 
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__copyright/footer__copyright.css");

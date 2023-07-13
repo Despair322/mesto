@@ -5,3 +5,8 @@
   width: 100%;
   max-width: 402px;
 }
+
+.popup__form:has(.popup__input) {
+  padding-top: 35px;
+}
+

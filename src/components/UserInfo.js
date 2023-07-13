@@ -1,18 +1,39 @@
 export default class UserInfo {
-  constructor(selectors) {
+  constructor(selectors, getInitialInfo) {
     this._nameElement = document.querySelector(selectors.name);
     this._professionElement = document.querySelector(selectors.profession)
+    this._avatar = document.querySelector(selectors.avatar)
+    getInitialInfo();
   }
 
   getUserInfo() {
     const data = {}
     data.name = this._nameElement.textContent;
     data.profession = this._professionElement.textContent;
+    data.avatar = this._avatar.url;
     return data;
   }
 
-  setUserInfo({name, profession}) {
+  getName() {
+    return this._nameElement.textContent;
+  }
+
+  setOwner(id) {
+    if (!this.id) {
+      this.id = id;
+    }
+    else {
+      throw new Error('Пользователь уже установлен');
+    }
+  }
+
+  setAvatar(avatar) {
+    this._avatar.src = avatar;
+  }
+
+  setUserInfo({ name, about, avatar }) {
     this._nameElement.textContent = name;
-    this._professionElement.textContent = profession;
+    this._professionElement.textContent = about;
+    this.setAvatar(avatar);
   }
 }

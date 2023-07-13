@@ -1,0 +1,8 @@
+.profile__photo-container {
+  position: relative;
+}
+@media screen and (min-width: 700px) {
+  .profile__photo-container {
+    grid-area: photo;
+  }
+}

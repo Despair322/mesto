@@ -1,0 +1,25 @@
+.profile__edit-photo {
+  position: absolute;
+  left: 47px;
+  top: 47px;
+  min-width: 26px;
+  min-height: 26px;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url("../../../images/editButton.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 26px;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 1;
+}
+
+.profile__photo-container:hover .profile__edit-photo {
+  opacity: 1;
+}
+.profile__edit-photo:hover {
+  opacity: 0.6 !important;
+}
